@@ -15,7 +15,7 @@
 	</select>
 
 	<select id="exist" resultType="string">
-	SELECT ID FROM MEMBER WHERE ID LIKE #{id} ;
+	SELECT COUNT(*) FROM MEMBER WHERE ID LIKE #{id} ;
 
 	</select>
 	<insert id="insert" parameterType="com.gms.web.mbr.Member">

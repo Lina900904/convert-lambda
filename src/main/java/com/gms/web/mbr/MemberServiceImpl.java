@@ -59,13 +59,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean login(Member m) {
-        return   memberDAO.login(m).equals("1") ;
+    public String login(Member p) {
+        return   memberDAO.login(p) ;
     }
 
 	@Override
-	public Member retrieve(Member m) {
-		return memberDAO.selectOne(m);
+	public Member retrieve(String p) {
+		return memberDAO.selectOne(p);
 	}
     
 

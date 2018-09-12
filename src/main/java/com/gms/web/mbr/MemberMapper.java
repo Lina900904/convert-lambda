@@ -9,7 +9,7 @@ public interface MemberMapper {
     public void insert(Member m) ;
     public List<?> selectList(Map<?, ?> p) ;
     public List<?> selectSome(Map<?, ?> p) ;
-    public Member selectOne(Member m) ;
+    public Member selectOne(String p) ;
     public int count(Map<?, ?> p) ;
     public void update(Member p) ;
     public void delete(Member p) ;

@@ -1,8 +1,10 @@
 package com.gms.web.mbr;
 
-
+import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,23 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.gms.web.mbr.MemberMapper;
-import com.google.common.base.Function;
-
-
+import com.gms.web.cmm.Util;
+import java.util.logging.Level;
 
 
 @Controller
 @RequestMapping("/member") //root-context공간에 저장
 @SessionAttributes("user") //user란 세션공간
-public class MemberCtrl {
-	//static final Logger Logger = LoggerFactory.getLogger();
+public class MemberCtrl {	
+	static final Logger Logger = LoggerFactory.getLogger(MemberCtrl.class);
 	@Autowired MemberMapper mbrMapper;
 	@Autowired Member member;
-	@Autowired MemberService memberService;
+	//@Autowired MemberService memberService;
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(@ModelAttribute Member member) {
-		memberService.add(member);
+		//memberService.add(member);
 		System.out.println("member is "+ member);
 		return "redirect:/move/auth/member/login";
 	}
@@ -35,30 +35,31 @@ public class MemberCtrl {
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(Model model, 
 			@ModelAttribute("member") Member param) {
-		//Logger.info("\n=================== memberController");
-		Predicate<String> p = s->!s.equals("");
-		System.out.println(">>>>>>>>>>>>>"+param.getId());
-		String r = mbrMapper.exist(param.getId());
-		System.out.println("++++++++++++++"+r);
-		boolean b =p.test(r);
-		System.out.println(">>>>>>>>>>>>>b값"+b);
+		Logger.info("\n=================== memberController");
+		// Predicate<String> p = s->!s.equals("");
+		System.out.println(param.getId());
+	
+	
 		
-		
-		System.out.println("param id>>>>"+param.getId());
-		System.out.println("param pw>>>>"+param.getPassword());
-		String login = "login_failed";
-		if(p.test(mbrMapper.exist(param.getId()))) {
-			Function<Member, String> f = (t)->{
+		String view = "login_failed";
+		System.out.println(view);
+		if(Util.notNull.test(mbrMapper.exist(param.getId()))) {
+			Function<Member,String> f = (t)->{
 				return mbrMapper.login(t);
 			};
-			login =  (f.apply(param).equals("1"))?
-					"login__success":
-						"login__failed";
-			System.out.println("로그인성공");
-			//model.addAttribute("user", memberService.retrieve(member));
+			view = (f.apply(param).equals("1")) ? 
+				"login__success":
+				"login_failed";
+			System.out.println(view);
+			
 		}
+		member=(Predicate.isEqual("login__success").test(view))?
+			mbrMapper.selectOne(param.getId()):
+			new Member();
+			///Util.log.accept(member.toString());
 		
-		return login;
+	
+		return view;
 	}
 	
 	@RequestMapping("/retrieve")
@@ -73,8 +74,8 @@ public class MemberCtrl {
 			@ModelAttribute("member") Member member,
 			@ModelAttribute("user") Member user) {
 		member.setId(user.getId());
-		memberService.modify(member);
-		model.addAttribute("user", memberService.retrieve(member));
+		//memberService.modify(member);
+		model.addAttribute("user", mbrMapper.selectOne(member.getId()));
 		
 		System.out.println("modify member값"+member);
 		return "login__success";
@@ -93,7 +94,7 @@ public class MemberCtrl {
 			@ModelAttribute Member member,
 			@ModelAttribute("user") Member user) {
 		member.setId(user.getId());
-		memberService.remove(member);
+		//memberService.remove(member);
 		System.out.println("remove member값"+member);
 		return "redirect:/";
 		
