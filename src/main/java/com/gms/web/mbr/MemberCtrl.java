@@ -9,15 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gms.web.cmm.Util;
-import java.util.logging.Level;
+import java.util.logging.*;
 
 
-@Controller
+@RestController
 @RequestMapping("/member") //root-context공간에 저장
 @SessionAttributes("user") //user란 세션공간
 public class MemberCtrl {	
@@ -32,32 +34,31 @@ public class MemberCtrl {
 		return "redirect:/move/auth/member/login";
 	}
 	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
+	@PostMapping(value="/login")
 	public String login(Model model, 
 			@ModelAttribute("member") Member param) {
 		Logger.info("\n=================== memberController");
-		// Predicate<String> p = s->!s.equals("");
+		// Predicate<String> p = s->!s.equals(""); 
 		System.out.println(param.getId());
-	
-	
 		
+	
 		String view = "login_failed";
 		System.out.println(view);
 		if(Util.notNull.test(mbrMapper.exist(param.getId()))) {
-			Function<Member,String> f = (t)->{
+			Function<Member,String> f = (t)->{ //t=member 
 				return mbrMapper.login(t);
 			};
 			view = (f.apply(param).equals("1")) ? 
 				"login__success":
 				"login_failed";
-			System.out.println(view);
+		
 			
 		}
 		member=(Predicate.isEqual("login__success").test(view))?
 			mbrMapper.selectOne(param.getId()):
 			new Member();
-			///Util.log.accept(member.toString());
-		
+			//Util.log.accept(member.toString());
+			System.out.println(member);
 	
 		return view;
 	}
