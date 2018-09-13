@@ -10,6 +10,4 @@ return {ctx:()=>{ return sessionStorage.getItem('ctx');},
 		style:()=>{ return sessionStorage.getItem('style');},
 		img:()=>{ return sessionStorage.getItem('img');},
 };
-		
-	
 }
