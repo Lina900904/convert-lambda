@@ -6,11 +6,10 @@ import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.gms.web.mbr.Member;
 
 public class Util {
 	public static Consumer<Integer>logi = System.out::println;
-	public static Consumer<Integer>log = System.out::println;
+	public static Consumer<String>log = System.out::println;
 	public static Function <String, Integer> ConvInt = Integer::parseInt;
 	public static Predicate<String> p = s->s.equals("");
 	public static Predicate<String> notNull = p.negate();

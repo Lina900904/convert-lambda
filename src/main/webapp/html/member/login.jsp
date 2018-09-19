@@ -17,9 +17,6 @@
 
 
 		</form>
-		
-
-			
 	</div>	
 	<script>
 	$('#loginFormBtn').click(function () {

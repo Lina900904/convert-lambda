@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.gms.web.mbr.MemberService;
 @Controller
 @RequestMapping("/board")
 public class BoardCtrl {
 	@Autowired Article article;
-	@Autowired MemberService memberService;
+	//@Autowired MemberService memberService;
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(@ModelAttribute Article article, Model model) {
 		System.out.println("article is "+ article);

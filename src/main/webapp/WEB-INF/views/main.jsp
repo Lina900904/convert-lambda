@@ -14,7 +14,6 @@
 
 <link href="${context}/resources/other_resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
 <link href="${context}/resources/other_resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-<link href="${context}/resources/js/algo.js"/>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -27,14 +26,14 @@
 
  
 	<%-- <script src = "${context}/resources/js/app.js"></script> --%>
-	  <script src = "${context}/resources/js/algo.js"></script>
+	  <script src = "${context}/resources/js/app.js"></script>
 	 
 </head>
 
 <body>
 	<div id="wrapper"></div> 
 <script>
-    algo.init('${context}');
+    app.init('${context}');
 </script> 
 </body>
 </html>
