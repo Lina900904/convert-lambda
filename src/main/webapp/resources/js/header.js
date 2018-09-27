@@ -1,7 +1,7 @@
 
 function headerUI(){
 	return '     <!--Start of slider section-->'
-    +'<section id="slider">'
+    +'<div id="header">'
         +'<div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">'
             +'<!-- Indicators -->'
             +'<ol class="carousel-indicators">'
@@ -14,7 +14,7 @@ function headerUI(){
             +'<div class="carousel-inner" role="listbox">'
                 +'<div class="item active">'
                     +'<div class="slider_overlay">'
-                        +'<img src="img/img1.jpg" alt="...">'
+                        +'<img src="'+$.ctx()+'/resources/img/img1.jpg" alt="...">'
                         +'<div class="carousel-caption">'
                             +'<div class="slider_text">'
                                 +'<h3>Protect</h3>'
@@ -28,7 +28,7 @@ function headerUI(){
                 +'<!--End of item With Active-->'
                 +'<div class="item">'
                     +'<div class="slider_overlay">'
-                        +'<img src="img/img2.jpg" alt="...">'
+                        +'<img src="'+$.ctx()+'/resources/img/img2.jpg" alt="...">'
                         +'<div class="carousel-caption">'
                             +'<div class="slider_text">'
                                 +'<h3>Protect</h3>'
@@ -42,7 +42,7 @@ function headerUI(){
                 +'<!--End of Item-->'
                 +'<div class="item">'
                     +'<div class="slider_overlay">'
-                        +'<img src="img/img3.jpg" alt="...">'
+                        +'<img src="'+$.ctx()+'/resources/img/img3.jpg" alt="...">'
                         +'<div class="carousel-caption">'
                             +'<div class="slider_text">'
                                 +'<h3>Protect</h3>'
@@ -57,7 +57,7 @@ function headerUI(){
             +'</div>'
             +'<!--End of Carousel Inner-->'
         +'</div>'
-    +'</section>'
+    +'</div>'
     +'<!--end of slider section-->'
 ;
 }

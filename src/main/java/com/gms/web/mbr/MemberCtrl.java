@@ -3,7 +3,6 @@ package com.gms.web.mbr;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,17 +22,18 @@ import com.gms.web.cmm.Util;
 
 @RestController
 @RequestMapping("/member") //root-context공간에 저장
-@SessionAttributes("user") //user란 세션공간
+
 public class MemberCtrl {	
 	static final Logger Logger = LoggerFactory.getLogger(MemberCtrl.class);
 	@Autowired MemberMapper mbrMapper;
 	@Autowired Member member;
 	//@Autowired MemberService memberService;
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@ModelAttribute Member member) {
-		//memberService.add(member);
+	@PostMapping(value="/add")
+	public @ResponseBody String  add(@RequestBody Member member) {
 		System.out.println("member is "+ member);
-		return "redirect:/move/auth/member/login";
+		String add = "";
+		
+		return add;
 	}
 	
 	@PostMapping(value="/login")

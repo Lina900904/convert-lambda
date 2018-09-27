@@ -48,17 +48,24 @@ function navUI(){
                                     +'<span class="icon-bar"></span>'
                                     +'<span class="icon-bar"></span>'
                                 +'</button>'
-                                +'<a class="navbar-brand custom_navbar-brand" href="#"><img src="img/logo.png" alt=""></a>'
+                                +'<a class="navbar-brand custom_navbar-brand" href="#"><img src="'+$.ctx()+'/resources/img/logo.png" alt=""></a>'
                             +'</div>'
                             +'<!--End of navbar-header-->'
+                            +'<div class="collapse navbar-collapse zero_mp" id="bs-example-navbar-collapse-2">'
+                            +'<ul class="nav navbar-nav navbar-right main_menu1">'
+                            +'				<li><a id="joinBut" class="page-scroll" href="#">회원가입</a></li>' 
+                            +'				<li><a id="loginBut" class="page-scroll" href="#">Login</a></li><br>'
 
-+'                            <!-- Collect the nav links, forms, and other content for toggling -->'
-                            +'<div class="collapse navbar-collapse zero_mp" id="bs-example-navbar-collapse-1">'
+                            +'</ul>'
+                            +'</div>'
+                            +'<div class="collapse navbar-collapse zero_mp" id="bs-example-navbar-collapse-2">'
                                 +'<ul class="nav navbar-nav navbar-right main_menu">'
-                                    +'<li class=""><a href="#header">Home <span class="sr-only">(current)</span></a></li>'
-                                	+'				<li><a id="boardBut" class="page-scroll" href="#">게시판</a></li>'
-                                	+'				<li><a id="loginBut" class="page-scroll" href="#">Login</a></li>'
-                                	+'				<li><a id="joinBut" class="page-scroll" href="#">회원가입</a></li>' 
+    
+                               
+                                +'				<li><a id="boardBut" class="page-scroll" href="#">게시판</a></li>'
+                                +'				<li><a id="my" class="page-scroll" href="#">리스트</a></li>'
+                                	
+                                	
                                 +'</ul>'
                             +'</div>'
                             +'<!-- /.navbar-collapse -->'

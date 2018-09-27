@@ -5,20 +5,48 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.gms.web.cmm.Criteria;
+import com.gms.web.cmm.SearchCriteria;
 import com.gms.web.mbr.Member;
-@Repository  //mapper는 mapperimpl이 없어서 
+import com.gms.web.page.Pagination;
+
+
+@Repository  
 public interface BoardMapper {
-    public void insert(Article m) ;
-    public List<?> selectList(Map<?, ?> p) ;
-    public List<?> selectSome(Map<?, ?> p) ;
-    public Article selectOne(Article m) ;
-    public int count(Map<?, ?> p) ;
-    public void update(Map<?, ?> p) ;
-    public void delete(Map<?, ?> p) ;
-    public String login(Article m) ;
-    public int countPaging();
-	public int listSearchCount();
-	public Article listCriteria();
-	public Article listPage();
-	public List<Article> listSearch();
-}
+	 public void create(Board vo) throws Exception;
+
+	  public Board read(Integer bno) throws Exception;
+
+	  public void update(Board vo) throws Exception;
+
+	  public void delete(Integer bno) throws Exception;
+
+	  public List<Board> listAll(Pagination p) ;
+
+	  public List<Board> listPage(int page) throws Exception;
+
+	  public List<Board> listCriteria(Criteria cri) throws Exception;
+
+	  public int countPaging(Criteria cri) throws Exception;
+	  
+	  //use for dynamic sql
+	  
+	  public List<Board> listSearch(SearchCriteria cri)throws Exception;
+	  
+	  public int listSearchCount(SearchCriteria cri)throws Exception;
+	  
+	  
+	  public void updateReplyCnt(Integer bno, int amount)throws Exception;
+	  
+	  
+	  public void updateViewCnt(Integer bno)throws Exception;
+	  
+	  public void addAttach(String fullName)throws Exception;
+	  
+	  public List<String> getAttach(Integer bno)throws Exception;  
+	   
+	  public void deleteAttach(Integer bno)throws Exception;
+	  
+	  public void replaceAttach(String fullName, Integer bno)throws Exception;
+	  
+	}

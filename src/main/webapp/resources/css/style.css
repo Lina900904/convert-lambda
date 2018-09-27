@@ -218,7 +218,7 @@ input: -webkit-autofill:focus {
 /*End of top header*/
 
 #header .header_menu {
-    min-height: 80px;
+    min-height: 100px;
     border-bottom: 1px solid #3D3E3D;
     z-index: 9999
 }
@@ -240,13 +240,21 @@ input: -webkit-autofill:focus {
 #header .header_menu .main_menu {
     padding-top: 20px;
 }
+#header .header_menu ul.main_menu1 li a {
+    color: #393939;
+    font-size:15px;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-family: 'Roboto Slab', serif;
+}
 #header .header_menu ul.main_menu li a {
     color: #393939;
-    font-size: 14px;
+    font-size:30px;
     text-transform: uppercase;
     font-weight: 600;
     font-family: 'Roboto Slab', serif;
 }
+
 #header .header_menu ul.main_menu li a:hover {
     color: #4DA91C;
 }

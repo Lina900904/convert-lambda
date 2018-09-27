@@ -22,7 +22,6 @@ app.main = (()=>{
 		script = $.script();
 		style = $.style();
 		img = $.img();
-		alert('1>>>>'+script); ///web/resources/js
 		w=$('#wrapper');
 		header = script+'/header.js';
 		content = script+'/content.js';
@@ -31,7 +30,7 @@ app.main = (()=>{
 		onCreate();
 	};
 	var onCreate =()=>{
-		console.log('step2');
+		
 		setContentView();
 		
 	};
@@ -43,15 +42,49 @@ app.main = (()=>{
 app.board = (()=>{
 	var w,index,header, footer, content, ctx, script, style, nav;
 	var init=()=>{
+		ctx = $.ctx();
+		script = $.script();
+		style = $.style();
+		img = $.img();
+		w=$('#wrapper');
+		header = script+'/header.js';
+		content = script+'/content.js';
+		nav = script+'/nav.js';
+		footer = script+'/footer.js';
 		onCreate();
 	};
 	var onCreate =()=>{
 		setContentView()
 	};
 	var setContentView =()=>{
-		alert('게시판');
-		$('#header').remove();
+		$('#header').empty();
 		$('#content').empty();
+		$.getJSON(ctx+'/boards/1',d=>{
+			  $.getScript($.script()+'/compo.js',()=>{
+				  let x ={
+					type : 'primary',
+					id : 'table',
+					head : '게시판',
+					body : '오픈게시판~~',
+					list :['No','제목','내용','작성자','작성일','조회수'],
+				  	clazz:'table table-bordered'
+				  };
+				  (ui.tbl(x)).appendTo('#content');
+				  $.each(d, (i,j)=>{
+					  $('<tr/>').append(
+							  $('<td/>').attr('width','5%').html(j.bno),
+							  $('<td/>').attr('width','10%').html(j.title),
+							  $('<td/>').attr('width','10%').html(j.content),
+							  $('<td/>').attr('width','10%').html(j.writer),
+							  $('<td/>').attr('width','10%').html(j.regdate),
+							  $('<td/>').attr('width','10%').html(j.viewcnt)
+							  ).appendTo($('tbody'));
+				  });
+				  
+				
+			  })
+		})
+	
 	
 	};
 
@@ -64,81 +97,96 @@ app.permission =(()=>{
 		$('#header').remove();
 		$('#content').empty();
 		$('#footer').remove();
-		
-		  $.getScript($.script()+'/login.js',()=>{
-			  $('#content').html(loginUI());
-			
-			  $('#loginFormBtn').click(x=>{
-				  alert('버튼을 눌렀다~~'+$('#id').val());
-				  $.ajax({
-					  url : $.ctx()+'/member/login',
-					  method : 'post',
-					  contentType : 'application/json',
-					  data : JSON.stringify({
-						  id : $('#id').val(),
-						  password : $('#password').val()
-					  }),
-					  success : d=>{
-						  alert('ID판단'+d.id);
-						  alert('pw판단'+d.pw);
-						  alert('mbr판단'+d.mbr);
-						  
-						  if(d.ID==="WRONG"){
+		  $.getScript($.script()+'/compo.js',()=>{
+			  $.getScript($.script()+'/login.js',()=>{ //setter의 의미
+				  $('#content').html(loginUI())
+				  ui.anchor({id : 'loginFormBtn', txt:'로그인'})
+				  .css({'width':'300px'})
+				  .addClass("btn btn-primary")
+				  .appendTo('#login')
+				  .click(x=>{
+					  alert('버튼을 눌렀다~~'+$('#id').val());
+					  $.ajax({
+						  url : $.ctx()+'/member/login',
+						  method : 'post',
+						  contentType : 'application/json',
+						  data : JSON.stringify({
+							  id : $('#id').val(),
+							  password : $('#password').val()
+						  }),
+						  success : d=>{
+							  alert('ID판단'+d.ID);
+							  alert('pw판단'+d.PASSWORD);
+							  alert('mbr판단'+d.mbr);
+							  
+							  if(d.ID==="WRONG"||d.PASSWORD==="WRONG"){
+								  app.router.home();
 								
-							}else if(d.PW==="WRONG"){
-								
-							}else{
-								app.router.loginNav();
-								
-							
-								
-							
-							
-								
-							};
-					  },
-					  error : (m1,m2,m3)=>{
-		 					alert('에러발생1'+m1);
-		 					alert('에러발생2'+m2);
-		 					alert('에러발생3'+m3);
-					  }
-				  });
-			  })
+								}else{
+									app.router.loginNav();
+								};
+						  },
+						  error : (m1,m2,m3)=>{
+							  alert(m3);
+						  }
+					  });
+				  })
+			  });
 		  });
+		 
 	};
 	var add =()=>{
 		alert('조인하이');
 		$('#header').remove();
 		$('#content').empty();
 		$('#footer').remove();
-		$.getScript($.script()+'/add.js',()=>{
-			$('#content').html(addUI());
-			$('#joinFormBtn').click(x=>{
-				  alert('버튼을 눌렀다~~');
-				  $.ajax({
-					  url : $.ctx()+'/member/add',
-					  method : 'post',
-					  contentType : 'application/json',
-					  data : JSON.stringify({
-						  id : $('#id').val(),
-						  name : $('#name').val(),
-						  ssn : $('#ssn').val(),
-						  password : $('#password').val()
-					  }),
-					  success : d=>{
-						  alert('ID판단'+d.id);
-						  alert('pw판단'+d.pw);
-						  alert('mbr판단'+d.mbr);
-					  },
-					  error : (m1,m2,m3)=>{
-		 					alert('에러발생1'+m1);
-		 					alert('에러발생2'+m2);
-		 					alert('에러발생3'+m3);
+		 $.getScript($.script()+'/compo.js',()=>{
+			 $.getScript($.script()+'/add.js',()=>{
+				  $('#content').html(addUI())
+				  var arr = [];
+				  var sub = $("[name='subject']");
+				  let i;
+				  for(i of sub){
+					  if(i.checked){
+						  alert('선택과목'+i.value);
+						  arr.push(i.value);
 					  }
-				  });
-			  })
+				  }
+				  ui.anchor({id : 'joinFormBtn', txt:'회원가입'})
+				  .addClass('btn btn-primary')
+				  .appendTo("#join-Form")
+				.click(x=>{
+					  alert('버튼을 눌렀다~~');
+					  $.ajax({
+						  url : $.ctx()+'/member/add',
+						  method : 'post',
+						  contentType : 'application/json',
+						  data : JSON.stringify({
+							  id : $('#id').val(),
+							  name : $('#name').val(),
+							  ssn : $('#ssn').val(),
+							  password : $('#password').val(),
+							  roll : $('#roll').val(),
+							  teamId : $('[name=teamId]:checked').val(),
+							  subject:JSON.stringify(arr) //키와 각 멤버의 값을 전달하여 함수를 호출
+						  }),
+						  success : d=>{
+							  alert('ID판단'+d.id);
+							  alert('pw판단'+d.pw);
+							  alert('mbr판단'+d.mbr);
+						  },
+						  error : (m1,m2,m3)=>{
+			 					alert('에러발생1'+m1);
+			 					alert('에러발생2'+m2);
+			 					alert('에러발생3'+m3);
+						  }
+					  });
+				  })
+		 });
+		
 		}
 	)};
+
 	return {login:login,add:add};
 })();
 app.router = {
@@ -179,6 +227,7 @@ app.router = {
 					app.permission.login();
 				});
 				$('#boardBut').click(e=>{
+					e.preventDefault();
 					alert('게시판');
 					app.board.init();
 				});
@@ -189,6 +238,7 @@ app.router = {
 					
 					
 				});
+		
 		   }).fail(x=>{
 		   	console.log('로드실패');
 		   });
@@ -220,5 +270,5 @@ app.router = {
 			});
 		})
 		}
-		//
+		
 }
