@@ -1,6 +1,7 @@
 
 
 
+
 "use strict;" //프로토타입 패턴
 var ui={
 	div : x=>{return $('<div/>').attr(x)},
@@ -54,17 +55,33 @@ var ui={
 		$('<tbody/>').appendTo(t);
 		return p;
 	},
-/*	<div class="panel panel-primary">
-	  <div class="panel-heading">Panel heading</div>
-	  <div class="panel-body">
-	    <p>...</p>
-	  </div>
+	page : x=>{
+		
+		return $('<nav/>')
+		.append(
+				$('<ul class="pagination"/>')
+				.attr('aria-label','...'));
+		
+/*let nav = $('<nav>');
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active">
+      <span class="page-link">
+        2
+        <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>	*/
+	},
 
-	  <!-- Table -->
-	  <table class="table">
-	    ...
-	  </table>
-	</div>*/
 		
 /*		Primary(blue)
 		Secondary(gray)
@@ -107,8 +124,36 @@ var ui={
 		 +'</div>'
 		 +'<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">'
 		 +'</div>'
-	},
+	}
 
 
 	
 }
+/*
+ * let prev = '',next = '';
+					let existPrev = x.existPrev;
+					let exisNext = x.exisNext;
+					if(!existPrev){
+						prev = 'disable';
+					}
+					if(!exisNext){
+						next = 'disable';
+					}
+					let ul = $('<ul id="ul">').addClass('pagination');
+					let preli = $('<li class="prev'+x.prev+'"><span class="page-link" href="#">◀</span>');
+					let nextli = $('<li class="next'+x.next+'"><span class="page-link" href="#">▶</span>');
+					preli.appendTo(ul);
+					for(let i=x.beginPage;i<x.endPage;i++){
+						$('<span/>').addClass('page-link').html(i)
+						.click(e=>{
+							 alert('나는 '+i+'눌렀다');
+						 })
+						.appendTo($('<li class="page-item"/>'))
+						.appendTo(ul)
+					};
+						$.each(x.list,(i,j)=>{
+							$('<th/>').html(j).appendTo(tr)
+						});
+						nextli.appendTo(ul);
+						ul.appendTo(nav);
+ */

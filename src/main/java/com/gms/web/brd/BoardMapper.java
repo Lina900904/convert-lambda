@@ -1,5 +1,6 @@
 package com.gms.web.brd;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,10 @@ public interface BoardMapper {
 	  public void delete(Integer bno) throws Exception;
 
 	  public List<Board> listAll(Pagination p) ;
+	  
 
 	  public List<Board> listPage(int page) throws Exception;
-
+	  public List<Board> myList(HashMap<String, Object> map);
 	  public List<Board> listCriteria(Criteria cri) throws Exception;
 
 	  public int countPaging(Criteria cri) throws Exception;
@@ -32,7 +34,8 @@ public interface BoardMapper {
 	  //use for dynamic sql
 	  
 	  public List<Board> listSearch(SearchCriteria cri)throws Exception;
-	  
+	  public int countAll();
+	  public int countBoard();
 	  public int listSearchCount(SearchCriteria cri)throws Exception;
 	  
 	  

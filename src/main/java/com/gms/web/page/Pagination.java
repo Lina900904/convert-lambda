@@ -1,4 +1,6 @@
 package com.gms.web.page;
+import java.util.HashMap;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -10,11 +12,11 @@ public class Pagination implements Proxy{
 	boolean existPrev,exisNext; 
 	
 	@Override
-	public void carryOut(Object o) {
-		pageNum = Integer.parseInt(((String) o).split("/")[0]); 
+	public void carryOut(HashMap<String, Object> map) {
+		pageNum = (int) map.get("pageNum"); 
 		pageSize = 5; 
 		blockSize = 5;
-		count = Integer.parseInt(((String) o).split("/")[1]);
+		count =  (int) map.get("count");
 		beginPage = Math.floorDiv(pageNum-1, pageSize)*pageSize+1;
 		endPage = (count>(beginPage+(blockSize-1))*pageSize)?
 				beginPage+(blockSize-1):(int)(Math.ceil(count/(double)pageSize));

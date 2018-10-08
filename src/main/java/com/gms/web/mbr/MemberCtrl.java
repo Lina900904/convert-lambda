@@ -66,7 +66,7 @@ public class MemberCtrl {
 			System.out.println(member);
 			rm.put("ID EXIST", idValid);
 			rm.put("PASSWORD", pwValid);
-			rm.put("MBR", pm);
+			rm.put("MBR", member);
 		return rm;
 	}
 	

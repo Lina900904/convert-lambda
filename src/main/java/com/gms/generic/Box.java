@@ -2,7 +2,7 @@ package com.gms.generic;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//
 @SuppressWarnings("unchecked")
 public class Box<T> {
 		ArrayList<T> list = new ArrayList<T>();

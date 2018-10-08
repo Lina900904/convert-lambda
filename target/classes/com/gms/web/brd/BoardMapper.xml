@@ -29,13 +29,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             WHERE NO BETWEEN #{beginRow} AND #{endRow}  
 
 
-<!--  select 
-   bno, title, content, writer, regdate, viewcnt 
- from 
-   board   -->
 
 	</select>
+	<select id="countAll" resultType="int">
 
+			SELECT COUNT(*)
+           FROM BOARD
+            
+
+
+	</select>
+		<select id="myList" resultType="com.gms.web.brd.Board">
+
+			SELECT bno, title, content, writer, regdate, viewcnt
+           FROM (
+            SELECT bno NO, A.*
+            FROM (
+            SELECT *
+            FROM board
+            WHERE ID LIKE {#id}
+       
+            ) A
+            ORDER BY bno DESC) B
+            WHERE NO BETWEEN #{page.beginRow} AND #{page.endRow}  
+	</select>
+<select id="countBoard" resultType="int">
+
+			SELECT COUNT(*)
+           FROM BOARD
+            WHERE ID LIKE {#id}
+            
+
+
+	</select>
 	<!-- <select id="listPage" resultType="com.gms.web.brd.Board">
 
  select 
